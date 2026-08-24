@@ -102,6 +102,10 @@ h1 {
   text-align: center;
 }
 
+.home-h1 {
+  margin-bottom: 20px;
+}
+
 .tagline {
   color: #221e19;
   font-size: 14px;

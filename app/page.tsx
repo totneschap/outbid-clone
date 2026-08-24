@@ -24,7 +24,7 @@ export default async function Home({
     <main>
       <SiteHeader />
       <VisitorStats />
-      <h1>
+      <h1 className="home-h1">
         Get your business <em>on top.</em>
       </h1>
       <p className="tagline">
