@@ -13,7 +13,9 @@ export default async function Home() {
 
   return (
     <main>
-      <Logo />
+      <header className="site-header">
+        <Logo />
+      </header>
       <VisitorStats />
       <h1>
         Get your business <em>on top.</em>
