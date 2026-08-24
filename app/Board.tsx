@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { CATEGORIES, categoryLabel } from "@/lib/categories";
 
 type Listing = {
@@ -66,6 +66,16 @@ export default function Board({
     const interval = setInterval(refresh, 4000);
     return () => clearInterval(interval);
   }, []);
+
+  const activeTabRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    activeTabRef.current?.scrollIntoView({
+      behavior: "smooth",
+      inline: "center",
+      block: "nearest",
+    });
+  }, [activeCategory]);
 
   function bumpClicksLocally(id: string) {
     const bump = (l: Listing) => (l.id === id ? { ...l, clicks: l.clicks + 1 } : l);
@@ -217,6 +227,7 @@ export default function Board({
       <div className="cat-tabs">
         <button
           type="button"
+          ref={activeCategory === "all" ? activeTabRef : undefined}
           className={`cat-tab${activeCategory === "all" ? " active" : ""}`}
           onClick={() => setActiveCategory("all")}
         >
@@ -226,6 +237,7 @@ export default function Board({
           <button
             key={c.id}
             type="button"
+            ref={activeCategory === c.id ? activeTabRef : undefined}
             className={`cat-tab${activeCategory === c.id ? " active" : ""}`}
             onClick={() => setActiveCategory(c.id)}
           >
