@@ -120,9 +120,13 @@ button:disabled {
 
 .cat-tabs {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: 8px;
   margin-bottom: 20px;
+  padding-bottom: 6px;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #eda084 transparent;
 }
 
 .cat-tab {
@@ -134,6 +138,8 @@ button:disabled {
   font-family: inherit;
   font-size: 12px;
   font-weight: 700;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .cat-tab:hover {
