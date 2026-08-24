@@ -9,6 +9,7 @@ type Listing = {
   category: string;
   totalPaid: number;
   clicks: number;
+  todayAmount?: number;
 };
 
 function toHref(label: string): string | null {
@@ -37,6 +38,8 @@ function trackClick(id: string) {
 
 export default function Board({ initialListings }: { initialListings: Listing[] }) {
   const [listings, setListings] = useState(initialListings);
+  const [todayListings, setTodayListings] = useState<Listing[]>([]);
+  const [range, setRange] = useState<"all" | "today">("all");
   const [activeCategory, setActiveCategory] = useState("all");
   const [label, setLabel] = useState("");
   const [amount, setAmount] = useState("");
@@ -45,13 +48,24 @@ export default function Board({ initialListings }: { initialListings: Listing[] 
   const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
-    const interval = setInterval(async () => {
-      const res = await fetch("/api/leaderboard");
-      const data = await res.json();
-      setListings(data.listings);
-    }, 4000);
+    async function refresh() {
+      const [allRes, todayRes] = await Promise.all([
+        fetch("/api/leaderboard"),
+        fetch("/api/leaderboard?range=today"),
+      ]);
+      setListings((await allRes.json()).listings);
+      setTodayListings((await todayRes.json()).listings);
+    }
+    refresh();
+    const interval = setInterval(refresh, 4000);
     return () => clearInterval(interval);
   }, []);
+
+  function bumpClicksLocally(id: string) {
+    const bump = (l: Listing) => (l.id === id ? { ...l, clicks: l.clicks + 1 } : l);
+    setListings((prev) => prev.map(bump));
+    setTodayListings((prev) => prev.map(bump));
+  }
 
   async function submitBid(e: React.FormEvent) {
     e.preventDefault();
@@ -95,12 +109,13 @@ export default function Board({ initialListings }: { initialListings: Listing[] 
     setAmount(String(Math.max(5, claimPrice + delta)));
   }
 
-  // Rank reflects each listing's position in the one shared, sitewide
-  // competition — filtering by category narrows what's shown, it doesn't
-  // start a separate #1 for that category.
+  // Rank reflects each listing's position in whichever competition is
+  // active (all-time or today) — filtering by category narrows what's
+  // shown, it doesn't start a separate #1 for that category.
+  const activeListings = range === "today" ? todayListings : listings;
   const ranked = useMemo(
-    () => listings.map((listing, i) => ({ ...listing, rank: i + 1 })),
-    [listings]
+    () => activeListings.map((listing, i) => ({ ...listing, rank: i + 1 })),
+    [activeListings]
   );
   const visible =
     activeCategory === "all"
@@ -174,6 +189,25 @@ export default function Board({ initialListings }: { initialListings: Listing[] 
       </form>
       {error && <p className="error">{error}</p>}
 
+      <div className="range-toggle">
+        <div className="range-toggle-inner">
+          <button
+            type="button"
+            className={`range-btn${range === "all" ? " active" : ""}`}
+            onClick={() => setRange("all")}
+          >
+            All-time
+          </button>
+          <button
+            type="button"
+            className={`range-btn${range === "today" ? " active" : ""}`}
+            onClick={() => setRange("today")}
+          >
+            Today
+          </button>
+        </div>
+      </div>
+
       <div className="cat-tabs">
         <button
           type="button"
@@ -212,11 +246,7 @@ export default function Board({ initialListings }: { initialListings: Listing[] 
                       rel="noreferrer"
                       onClick={() => {
                         trackClick(listing.id);
-                        setListings((prev) =>
-                          prev.map((l) =>
-                            l.id === listing.id ? { ...l, clicks: l.clicks + 1 } : l
-                          )
-                        );
+                        bumpClicksLocally(listing.id);
                       }}
                     >
                       {listing.label}
@@ -230,7 +260,13 @@ export default function Board({ initialListings }: { initialListings: Listing[] 
                     {listing.clicks === 1 ? "click" : "clicks"}
                   </span>
                 </div>
-                <span className="amount">${listing.totalPaid.toLocaleString()}</span>
+                <span className="amount">
+                  $
+                  {(range === "today"
+                    ? listing.todayAmount ?? 0
+                    : listing.totalPaid
+                  ).toLocaleString()}
+                </span>
                 <button
                   type="button"
                   className="outbid-btn"

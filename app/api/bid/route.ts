@@ -37,6 +37,9 @@ export async function POST(req: Request) {
       update: { totalPaid: targetTotal, category },
       create: { label, totalPaid: targetTotal, category },
     });
+    await prisma.bid.create({
+      data: { listingId: listing.id, amount: result.chargeAmount },
+    });
     return NextResponse.json({ simulated: true, listing });
   }
 

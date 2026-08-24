@@ -53,10 +53,14 @@ export async function POST(req: Request) {
             `session ${session.id} targeted $${targetTotal} — needs refund`
         );
       } else {
-        await prisma.listing.upsert({
+        const chargeAmount = targetTotal - (existing?.totalPaid ?? 0);
+        const listing = await prisma.listing.upsert({
           where: { label },
           update: { totalPaid: targetTotal, category },
           create: { label, totalPaid: targetTotal, category },
+        });
+        await prisma.bid.create({
+          data: { listingId: listing.id, amount: chargeAmount },
         });
       }
     }

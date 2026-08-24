@@ -16,6 +16,10 @@ main {
   padding: 48px 20px 80px;
 }
 
+p {
+  font-size: 14px;
+}
+
 .visitor-stats {
   display: inline-flex;
   align-items: center;
@@ -190,6 +194,42 @@ button:disabled {
   color: #c8392c;
   font-size: 13px;
   margin: -18px 0 24px;
+}
+
+.range-toggle {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.range-toggle-inner {
+  display: inline-flex;
+  background: #ffffff;
+  border: 1px solid #efe7d8;
+  border-radius: 999px;
+  padding: 4px;
+  gap: 4px;
+}
+
+.range-btn {
+  background: transparent;
+  color: #8c8781;
+  border: none;
+  border-radius: 999px;
+  padding: 8px 18px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.range-btn:hover:not(.active) {
+  background: #fce0d6;
+  color: #221e19;
+}
+
+.range-btn.active {
+  background: #e17a5f;
+  color: #ffffff;
 }
 
 .cat-tabs {
