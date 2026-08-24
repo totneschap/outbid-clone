@@ -50,6 +50,7 @@ p {
   display: flex;
   align-items: center;
   gap: 8px;
+  text-decoration: none;
 }
 
 .logo-mark {
@@ -65,7 +66,8 @@ p {
 }
 
 .visitor-stats {
-  display: inline-flex;
+  display: flex;
+  width: fit-content;
   align-items: center;
   gap: 6px;
   background: #ffffff;
@@ -75,7 +77,7 @@ p {
   color: #8c8781;
   font-size: 14px;
   font-weight: 600;
-  margin: 0 0 24px;
+  margin: 0 auto 24px;
 }
 
 .online-dot {

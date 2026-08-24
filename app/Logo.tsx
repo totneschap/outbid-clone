@@ -1,6 +1,8 @@
+import Link from "next/link";
+
 export default function Logo() {
   return (
-    <div className="logo">
+    <Link href="/" className="logo">
       <svg className="logo-mark" viewBox="0 0 64 64" aria-hidden="true">
         <rect x="5" y="42" width="14" height="14" rx="3" fill="#eda084" />
         <rect x="25" y="32" width="14" height="24" rx="3" fill="#eda084" />
@@ -11,6 +13,6 @@ export default function Logo() {
         />
       </svg>
       <span className="logo-word">ontop</span>
-    </div>
+    </Link>
   );
 }
