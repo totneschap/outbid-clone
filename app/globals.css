@@ -15,6 +15,11 @@ main {
   padding: 48px 20px 80px;
 }
 
+h1 em {
+  font-style: normal;
+  color: #9be89b;
+}
+
 h1 {
   font-size: 22px;
   margin: 0 0 4px;

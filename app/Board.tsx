@@ -117,7 +117,7 @@ export default function Board({ initialListings }: { initialListings: Listing[] 
                     setAmount(String(listing.totalPaid + 1));
                   }}
                 >
-                  outbid
+                  get on top
                 </button>
               </li>
             );

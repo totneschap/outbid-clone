@@ -11,8 +11,13 @@ export default async function Home() {
 
   return (
     <main>
-      <h1>outbid (clone)</h1>
-      <p className="tagline">Pay to rank. Whoever bids highest sits on top.</p>
+      <h1>
+        Get your business <em>on top.</em>
+      </h1>
+      <p className="tagline">
+        The public leaderboard where paying the most gets you to #1. No
+        algorithm, no subscriptions — just outbid everyone else.
+      </p>
 
       {!isStripeEnabled && (
         <div className="banner">
