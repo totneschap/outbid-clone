@@ -75,7 +75,7 @@ p {
   border: 1px solid #efe7d8;
   border-radius: 999px;
   padding: 6px 14px;
-  color: #8c8781;
+  color: #221e19;
   font-size: 14px;
   font-weight: 600;
   margin: 0 auto 24px;
@@ -103,7 +103,7 @@ h1 {
 }
 
 .tagline {
-  color: #8c8781;
+  color: #221e19;
   font-size: 14px;
   line-height: 1.5;
   margin: 0 0 28px;
@@ -147,7 +147,7 @@ h1 {
 }
 
 .claim-note {
-  color: #8c8781;
+  color: #221e19;
   font-size: 14px;
   line-height: 1.5;
   margin: 0 0 28px;
@@ -424,7 +424,7 @@ li.row.first .outbid-btn:hover {
 }
 
 .empty {
-  color: #8c8781;
+  color: #221e19;
   font-size: 14px;
   padding: 24px 0;
 }
@@ -439,7 +439,7 @@ footer {
 }
 
 .footer-rules {
-  color: #b3ada3;
+  color: #221e19;
   font-size: 12px;
   margin: 0;
 }
