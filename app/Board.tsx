@@ -36,11 +36,17 @@ function trackClick(id: string) {
   }
 }
 
-export default function Board({ initialListings }: { initialListings: Listing[] }) {
+export default function Board({
+  initialListings,
+  initialCategory,
+}: {
+  initialListings: Listing[];
+  initialCategory?: string;
+}) {
   const [listings, setListings] = useState(initialListings);
   const [todayListings, setTodayListings] = useState<Listing[]>([]);
   const [range, setRange] = useState<"all" | "today">("all");
-  const [activeCategory, setActiveCategory] = useState("all");
+  const [activeCategory, setActiveCategory] = useState(initialCategory ?? "all");
   const [label, setLabel] = useState("");
   const [amount, setAmount] = useState("");
   const [category, setCategory] = useState("");

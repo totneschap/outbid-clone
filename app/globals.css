@@ -23,7 +23,27 @@ p {
 .site-header {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  gap: 12px;
   margin-bottom: 32px;
+}
+
+.site-nav {
+  display: flex;
+  gap: 20px;
+}
+
+.site-nav a,
+.footer-nav a {
+  color: #8c8781;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.site-nav a:hover,
+.footer-nav a:hover {
+  color: #e17a5f;
 }
 
 .logo {
@@ -408,6 +428,76 @@ li.row.first .outbid-btn:hover {
 
 footer {
   margin-top: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.footer-rules {
   color: #b3ada3;
   font-size: 12px;
+  margin: 0;
+}
+
+.footer-nav {
+  display: flex;
+  gap: 16px;
+}
+
+.footer-nav a {
+  font-size: 12px;
+}
+
+.prose {
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.prose p {
+  line-height: 1.6;
+  margin: 0 0 18px;
+}
+
+.prose h2 {
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  margin: 32px 0 10px;
+}
+
+.prose h2:first-child {
+  margin-top: 0;
+}
+
+.prose a {
+  color: #e17a5f;
+}
+
+.category-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 10px;
+}
+
+.category-card {
+  display: block;
+  background: #ffffff;
+  border: 1px solid #efe7d8;
+  border-radius: 14px;
+  padding: 16px 18px;
+  color: #221e19;
+  font-weight: 700;
+  font-size: 14px;
+  text-decoration: none;
+  transition: background 0.12s ease, border-color 0.12s ease;
+}
+
+.category-card:hover {
+  background: #fce0d6;
+  border-color: #eda084;
 }

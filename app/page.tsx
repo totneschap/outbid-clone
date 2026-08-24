@@ -1,21 +1,28 @@
+import Link from "next/link";
 import { prisma } from "@/lib/db";
 import { isStripeEnabled } from "@/lib/stripe";
+import { isValidCategory } from "@/lib/categories";
 import Board from "./Board";
 import VisitorStats from "./VisitorStats";
-import Logo from "./Logo";
+import SiteHeader from "./SiteHeader";
 
 export const dynamic = "force-dynamic";
 
-export default async function Home() {
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: { category?: string };
+}) {
   const listings = await prisma.listing.findMany({
-    orderBy: { totalPaid: "desc" },
+    orderBy: [{ totalPaid: "desc" }, { updatedAt: "asc" }],
   });
+  const initialCategory = isValidCategory(searchParams.category)
+    ? searchParams.category
+    : "all";
 
   return (
     <main>
-      <header className="site-header">
-        <Logo />
-      </header>
+      <SiteHeader />
       <VisitorStats />
       <h1>
         Get your business <em>on top.</em>
@@ -33,11 +40,18 @@ export default async function Home() {
         </div>
       )}
 
-      <Board initialListings={listings} />
+      <Board initialListings={listings} initialCategory={initialCategory} />
 
       <footer>
-        $5 minimum &middot; $1 increments &middot; $999,999 cap &middot; bids
-        never expire or refund.
+        <p className="footer-rules">
+          $5 minimum &middot; $1 increments &middot; $999,999 cap &middot; bids
+          never expire or refund.
+        </p>
+        <nav className="footer-nav">
+          <Link href="/categories">Categories</Link>
+          <Link href="/about">About</Link>
+          <Link href="/rules">Rules</Link>
+        </nav>
       </footer>
     </main>
   );

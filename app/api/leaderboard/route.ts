@@ -36,8 +36,10 @@ export async function GET(req: Request) {
     return NextResponse.json({ listings: todayListings });
   }
 
+  // Ties (equal totalPaid) resolve to whoever reached that amount first —
+  // updatedAt is when a listing's total last changed, i.e. its last bid.
   const listings = await prisma.listing.findMany({
-    orderBy: { totalPaid: "desc" },
+    orderBy: [{ totalPaid: "desc" }, { updatedAt: "asc" }],
   });
   return NextResponse.json({ listings });
 }
