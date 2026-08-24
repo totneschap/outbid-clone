@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import SiteHeader from "../SiteHeader";
+import SiteFooter from "../SiteFooter";
 
 export const metadata: Metadata = {
   title: "About — ontop",
@@ -11,7 +12,7 @@ export default function AboutPage() {
     <main>
       <SiteHeader />
       <h1>About ontop</h1>
-      <div className="prose">
+      <div className="prose prose-lg">
         <p>
           ontop is a public leaderboard where rank is bought, not earned by
           an algorithm. Submit your business, product, or profile, name your
@@ -34,6 +35,7 @@ export default function AboutPage() {
           <a href="/rules">rules page</a>.
         </p>
       </div>
+      <SiteFooter />
     </main>
   );
 }

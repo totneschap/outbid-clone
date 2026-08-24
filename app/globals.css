@@ -61,7 +61,7 @@ p {
 
 .logo-word {
   font-size: 20px;
-  font-weight: 800;
+  font-weight: 400;
   letter-spacing: -0.02em;
   color: #221e19;
 }
@@ -175,6 +175,11 @@ form {
   gap: 8px;
   margin-bottom: 28px;
   flex-wrap: wrap;
+}
+
+.form-row {
+  display: flex;
+  gap: 8px;
 }
 
 input {
@@ -478,6 +483,10 @@ footer {
   color: #e17a5f;
 }
 
+.prose-lg p {
+  font-size: 18px;
+}
+
 .category-grid {
   list-style: none;
   margin: 0;
@@ -503,4 +512,24 @@ footer {
 .category-card:hover {
   background: #fce0d6;
   border-color: #eda084;
+}
+
+@media (max-width: 640px) {
+  input[name="label"],
+  select {
+    width: 100%;
+  }
+
+  .form-row {
+    width: 100%;
+  }
+
+  .form-row input[name="amount"] {
+    width: auto;
+    flex: 1;
+  }
+
+  .form-row button {
+    flex: 1;
+  }
 }

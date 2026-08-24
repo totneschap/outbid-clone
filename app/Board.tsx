@@ -190,18 +190,20 @@ export default function Board({
             </option>
           ))}
         </select>
-        <input
-          name="amount"
-          type="number"
-          placeholder={`$${Math.max(5, top + 1)}`}
-          value={amount}
-          onChange={(e) => setAmount(e.target.value)}
-          min={1}
-          required
-        />
-        <button type="submit" disabled={submitting}>
-          {submitting ? "..." : "Bid"}
-        </button>
+        <div className="form-row">
+          <input
+            name="amount"
+            type="number"
+            placeholder={`$${Math.max(5, top + 1)}`}
+            value={amount}
+            onChange={(e) => setAmount(e.target.value)}
+            min={1}
+            required
+          />
+          <button type="submit" disabled={submitting}>
+            {submitting ? "..." : "Bid"}
+          </button>
+        </div>
       </form>
       {error && <p className="error">{error}</p>}
 

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import SiteHeader from "../SiteHeader";
+import SiteFooter from "../SiteFooter";
 
 export const metadata: Metadata = {
   title: "Rules — ontop",
@@ -56,6 +57,7 @@ export default function RulesPage() {
           long as it holds it.
         </p>
       </div>
+      <SiteFooter />
     </main>
   );
 }

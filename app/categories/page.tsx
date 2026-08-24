@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { CATEGORIES } from "@/lib/categories";
 import SiteHeader from "../SiteHeader";
+import SiteFooter from "../SiteFooter";
 
 export const metadata: Metadata = {
   title: "Categories — ontop",
@@ -27,6 +28,7 @@ export default function CategoriesPage() {
           </li>
         ))}
       </ol>
+      <SiteFooter />
     </main>
   );
 }

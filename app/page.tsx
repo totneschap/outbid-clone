@@ -1,10 +1,10 @@
-import Link from "next/link";
 import { prisma } from "@/lib/db";
 import { isStripeEnabled } from "@/lib/stripe";
 import { isValidCategory } from "@/lib/categories";
 import Board from "./Board";
 import VisitorStats from "./VisitorStats";
 import SiteHeader from "./SiteHeader";
+import SiteFooter from "./SiteFooter";
 
 export const dynamic = "force-dynamic";
 
@@ -42,17 +42,7 @@ export default async function Home({
 
       <Board initialListings={listings} initialCategory={initialCategory} />
 
-      <footer>
-        <p className="footer-rules">
-          $5 minimum &middot; $1 increments &middot; $999,999 cap &middot; bids
-          never expire or refund.
-        </p>
-        <nav className="footer-nav">
-          <Link href="/categories">Categories</Link>
-          <Link href="/about">About</Link>
-          <Link href="/rules">Rules</Link>
-        </nav>
-      </footer>
+      <SiteFooter />
     </main>
   );
 }
