@@ -8,6 +8,7 @@ type Listing = {
   label: string;
   category: string;
   totalPaid: number;
+  clicks: number;
 };
 
 function toHref(label: string): string | null {
@@ -17,6 +18,20 @@ function toHref(label: string): string | null {
     return url;
   } catch {
     return null;
+  }
+}
+
+function trackClick(id: string) {
+  const payload = new Blob([JSON.stringify({ id })], { type: "application/json" });
+  if (navigator.sendBeacon) {
+    navigator.sendBeacon("/api/click", payload);
+  } else {
+    fetch("/api/click", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id }),
+      keepalive: true,
+    }).catch(() => {});
   }
 }
 
@@ -190,13 +205,30 @@ export default function Board({ initialListings }: { initialListings: Listing[] 
                 <span className="rank">{listing.rank}</span>
                 <div className="info">
                   {href ? (
-                    <a className="label" href={href} target="_blank" rel="noreferrer">
+                    <a
+                      className="label"
+                      href={href}
+                      target="_blank"
+                      rel="noreferrer"
+                      onClick={() => {
+                        trackClick(listing.id);
+                        setListings((prev) =>
+                          prev.map((l) =>
+                            l.id === listing.id ? { ...l, clicks: l.clicks + 1 } : l
+                          )
+                        );
+                      }}
+                    >
                       {listing.label}
                     </a>
                   ) : (
                     <span className="label">{listing.label}</span>
                   )}
-                  <span className="category-tag">{categoryLabel(listing.category)}</span>
+                  <span className="category-tag">
+                    {categoryLabel(listing.category)} &middot;{" "}
+                    {listing.clicks.toLocaleString()}{" "}
+                    {listing.clicks === 1 ? "click" : "clicks"}
+                  </span>
                 </div>
                 <span className="amount">${listing.totalPaid.toLocaleString()}</span>
                 <button

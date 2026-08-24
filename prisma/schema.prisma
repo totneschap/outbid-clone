@@ -12,6 +12,7 @@ model Listing {
   label     String   @unique
   category  String
   totalPaid Int
+  clicks    Int      @default(0)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
