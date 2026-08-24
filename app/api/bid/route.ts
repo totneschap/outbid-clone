@@ -2,17 +2,22 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
 import { stripe, isStripeEnabled } from "@/lib/stripe";
 import { normalizeLabel, validateBid } from "@/lib/rules";
+import { isValidCategory } from "@/lib/categories";
 
 export async function POST(req: Request) {
   const body = await req.json().catch(() => null);
   const label = typeof body?.label === "string" ? normalizeLabel(body.label) : "";
   const targetTotal = Number(body?.amount);
+  const category = body?.category;
 
   if (!label) {
     return NextResponse.json({ error: "Enter a URL or handle." }, { status: 400 });
   }
   if (!Number.isFinite(targetTotal)) {
     return NextResponse.json({ error: "Enter a bid amount." }, { status: 400 });
+  }
+  if (!isValidCategory(category)) {
+    return NextResponse.json({ error: "Choose a category." }, { status: 400 });
   }
 
   const existing = await prisma.listing.findUnique({ where: { label } });
@@ -29,8 +34,8 @@ export async function POST(req: Request) {
   if (!isStripeEnabled) {
     const listing = await prisma.listing.upsert({
       where: { label },
-      update: { totalPaid: targetTotal },
-      create: { label, totalPaid: targetTotal },
+      update: { totalPaid: targetTotal, category },
+      create: { label, totalPaid: targetTotal, category },
     });
     return NextResponse.json({ simulated: true, listing });
   }
@@ -57,6 +62,7 @@ export async function POST(req: Request) {
     metadata: {
       label,
       targetTotal: String(targetTotal),
+      category,
     },
     success_url: `${baseUrl}/success?session_id={CHECKOUT_SESSION_ID}`,
     cancel_url: `${baseUrl}/`,

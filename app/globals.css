@@ -75,6 +75,21 @@ input[name="amount"] {
   width: 110px;
 }
 
+select {
+  background: #ffffff;
+  border: 1px solid #efe7d8;
+  color: #221e19;
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-family: inherit;
+  font-size: 14px;
+  min-width: 170px;
+}
+
+select:invalid {
+  color: #b3ada3;
+}
+
 button {
   background: #e17a5f;
   color: #ffffff;
@@ -101,6 +116,39 @@ button:disabled {
   color: #c8392c;
   font-size: 13px;
   margin: -18px 0 24px;
+}
+
+.cat-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.cat-tab {
+  background: #ffffff;
+  color: #8c8781;
+  border: 1px solid #efe7d8;
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.cat-tab:hover {
+  background: #fce0d6;
+  color: #221e19;
+}
+
+.cat-tab.active {
+  background: #e17a5f;
+  color: #ffffff;
+  border-color: #e17a5f;
+}
+
+.cat-tab.active:hover {
+  background: #d0694e;
 }
 
 ol {
@@ -147,8 +195,15 @@ li.row.first .rank {
   color: #ffffff;
 }
 
-.label {
+.info {
   flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.label {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -159,6 +214,16 @@ li.row.first .rank {
 
 .label:hover {
   text-decoration: underline;
+}
+
+.category-tag {
+  font-size: 11px;
+  font-weight: 600;
+  color: #b3805f;
+}
+
+li.row.first .category-tag {
+  color: #a24a2c;
 }
 
 .amount {

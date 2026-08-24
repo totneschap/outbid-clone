@@ -10,6 +10,7 @@ datasource db {
 model Listing {
   id        String   @id @default(cuid())
   label     String   @unique
+  category  String
   totalPaid Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

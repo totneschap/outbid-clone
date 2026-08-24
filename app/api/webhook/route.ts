@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
 import { stripe } from "@/lib/stripe";
+import { isValidCategory } from "@/lib/categories";
 
 export async function POST(req: Request) {
   if (!stripe || !process.env.STRIPE_WEBHOOK_SECRET) {
@@ -28,12 +29,18 @@ export async function POST(req: Request) {
     const session = event.data.object as any;
     const label = session.metadata?.label as string | undefined;
     const targetTotal = Number(session.metadata?.targetTotal);
+    const category = session.metadata?.category;
 
     // Some payment methods (bank debits, etc.) notify asynchronously:
     // checkout.session.completed can fire while payment_status is still
     // "unpaid", with the real confirmation arriving later via
     // async_payment_succeeded. Only credit the bid once it's actually paid.
-    if (label && Number.isFinite(targetTotal) && session.payment_status !== "unpaid") {
+    if (
+      label &&
+      Number.isFinite(targetTotal) &&
+      isValidCategory(category) &&
+      session.payment_status !== "unpaid"
+    ) {
       const existing = await prisma.listing.findUnique({ where: { label } });
 
       // Someone else already pushed this label's total past what this
@@ -48,8 +55,8 @@ export async function POST(req: Request) {
       } else {
         await prisma.listing.upsert({
           where: { label },
-          update: { totalPaid: targetTotal },
-          create: { label, totalPaid: targetTotal },
+          update: { totalPaid: targetTotal, category },
+          create: { label, totalPaid: targetTotal, category },
         });
       }
     }
