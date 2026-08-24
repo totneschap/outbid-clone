@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/db";
 import { isStripeEnabled } from "@/lib/stripe";
 import Board from "./Board";
+import VisitorStats from "./VisitorStats";
 
 export const dynamic = "force-dynamic";
 
@@ -11,6 +12,7 @@ export default async function Home() {
 
   return (
     <main>
+      <VisitorStats />
       <h1>
         Get your business <em>on top.</em>
       </h1>

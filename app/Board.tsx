@@ -71,6 +71,14 @@ export default function Board({ initialListings }: { initialListings: Listing[] 
   }
 
   const top = listings[0]?.totalPaid ?? 0;
+  const defaultClaim = Math.max(5, top + 1);
+  // The steppers and the form's amount field are the same value — adjusting
+  // one is just a shortcut for typing into the other.
+  const claimPrice = amount === "" ? defaultClaim : Number(amount) || defaultClaim;
+
+  function bumpClaim(delta: number) {
+    setAmount(String(Math.max(5, claimPrice + delta)));
+  }
 
   // Rank reflects each listing's position in the one shared, sitewide
   // competition — filtering by category narrows what's shown, it doesn't
@@ -86,6 +94,33 @@ export default function Board({ initialListings }: { initialListings: Listing[] 
 
   return (
     <>
+      <div className="claim">
+        <button
+          type="button"
+          className="claim-step"
+          onClick={() => bumpClaim(-1)}
+          aria-label="Lower by one dollar"
+        >
+          &minus;
+        </button>
+        <span className="claim-text">
+          Claim #1 for <span className="claim-price">${claimPrice.toLocaleString()}</span>
+        </span>
+        <button
+          type="button"
+          className="claim-step"
+          onClick={() => bumpClaim(1)}
+          aria-label="Raise by one dollar"
+        >
+          +
+        </button>
+      </div>
+      <p className="claim-note">
+        <span className="claim-note-highlight">New spots start at $5.</span> Paying
+        less than the #1 price still puts you on the board at whatever place
+        that bid can take.
+      </p>
+
       <form onSubmit={submitBid}>
         <input
           name="label"

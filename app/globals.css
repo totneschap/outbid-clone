@@ -16,6 +16,28 @@ main {
   padding: 48px 20px 80px;
 }
 
+.visitor-stats {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #ffffff;
+  border: 1px solid #efe7d8;
+  border-radius: 999px;
+  padding: 6px 14px;
+  color: #8c8781;
+  font-size: 12px;
+  font-weight: 600;
+  margin: 0 0 24px;
+}
+
+.online-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #3fae49;
+  flex-shrink: 0;
+}
+
 h1 em {
   font-style: normal;
   color: #e17a5f;
@@ -33,6 +55,53 @@ h1 {
   font-size: 14px;
   line-height: 1.5;
   margin: 0 0 28px;
+}
+
+.claim {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 0 0 8px;
+}
+
+.claim-step {
+  background: #fce0d6;
+  color: #221e19;
+  border: none;
+  border-radius: 50%;
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+  padding: 0;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.claim-step:hover {
+  background: #f4c6b3;
+}
+
+.claim-text {
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.claim-price {
+  color: #e17a5f;
+}
+
+.claim-note {
+  color: #8c8781;
+  font-size: 13px;
+  line-height: 1.5;
+  margin: 0 0 28px;
+}
+
+.claim-note-highlight {
+  color: #e17a5f;
+  font-weight: 600;
 }
 
 .banner {
