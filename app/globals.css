@@ -104,6 +104,7 @@ h1 {
 }
 
 .claim-note-highlight {
+  display: block;
   color: #e17a5f;
   font-weight: 600;
 }
