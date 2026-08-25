@@ -3,7 +3,7 @@ import "./globals.css";
 
 const title = "ontop — is your business on top?";
 const description =
-  "The public leaderboard where businesses pay to rank #1. No algorithm, no subscriptions — just outbid everyone else.";
+  "ontop is the open pay-to-rank leaderboard for businesses. Place your bid, claim #1, outbid competitors, and drive traffic straight to your business.";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://ontop.business"),
